@@ -3,5 +3,6 @@
   "framework": "nextjs", 
   "buildCommand": "cd apps/notes && npm run build",
   "outputDirectory": "apps/notes/.next",
-  "installCommand": "cd apps/notes && node scripts/deploy-build.js"
+  "installCommand": "cd apps/notes && node scripts/deploy-build.js",
+  "regions": ["iad1"]
 }

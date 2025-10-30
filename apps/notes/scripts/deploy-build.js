@@ -39,7 +39,7 @@ export class CryptoService {
     return crypto.subtle.deriveKey(
       {
         name: 'PBKDF2',
-        salt,
+        salt: new Uint8Array(salt),
         iterations: this.PBKDF2_ITERATIONS,
         hash: 'SHA-256'
       },
@@ -70,7 +70,7 @@ export class CryptoService {
 
     return {
       data: this.arrayBufferToBase64(encryptedBuffer),
-      iv: this.arrayBufferToBase64(iv)
+      iv: this.arrayBufferToBase64(iv.buffer)
     };
   }
 
