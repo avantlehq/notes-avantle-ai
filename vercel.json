@@ -2,5 +2,5 @@
   "framework": "nextjs",
   "buildCommand": "cd apps/notes && npm run build",
   "outputDirectory": "apps/notes/.next",
-  "installCommand": "cd apps/notes && node scripts/create-stubs.js && npm install"
+  "installCommand": "cd apps/notes && node scripts/prepare-build.js && npm install"
 }
