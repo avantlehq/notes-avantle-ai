@@ -1,4 +1,5 @@
 {
+  "version": 2,
   "framework": "nextjs", 
   "buildCommand": "cd apps/notes && npm run build",
   "outputDirectory": "apps/notes/.next",
