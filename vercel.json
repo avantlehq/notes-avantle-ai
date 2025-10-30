@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "name": "notes-avantle-ai",
+  "builds": [
+    {
+      "src": "apps/notes/package.json",
+      "use": "@vercel/next",
+      "config": {
+        "zeroConfig": true
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "apps/notes/$1"
+    }
+  ]
+}
