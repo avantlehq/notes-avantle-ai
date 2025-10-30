@@ -60,4 +60,25 @@ fs.writeFileSync(path.join(uiDir, 'package.json'), JSON.stringify({
 fs.writeFileSync(path.join(uiDistDir, 'index.js'), 'export function Footer() { return null; }');
 
 console.log('✅ Stub packages created successfully');
+
+// Remove workspace dependencies from package.json
+const packageJsonPath = path.join(__dirname, '../package.json');
+try {
+  const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+  
+  // Create a backup
+  fs.writeFileSync(packageJsonPath + '.backup', JSON.stringify(packageJson, null, 2));
+  
+  // Remove workspace dependencies
+  if (packageJson.dependencies) {
+    delete packageJson.dependencies['@avantle/core'];
+    delete packageJson.dependencies['@avantle/ui'];
+  }
+  
+  fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
+  console.log('✅ Removed workspace dependencies from package.json');
+} catch (err) {
+  console.log('ℹ️ Could not modify package.json:', err.message);
+}
+
 console.log('🚀 Ready for npm install!');
