@@ -1,6 +1,6 @@
 {
-  "framework": "nextjs",
-  "buildCommand": "cd apps/notes && npm run build", 
+  "framework": "nextjs", 
+  "buildCommand": "cd apps/notes && npm run build",
   "outputDirectory": "apps/notes/.next",
-  "installCommand": "cd apps/notes && node scripts/simple-stubs.js && npm install"
+  "installCommand": "cd apps/notes && node scripts/deploy-build.js"
 }
