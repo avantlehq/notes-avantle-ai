@@ -15,7 +15,7 @@ export default function Home() {
           <div className="bg-white/10 backdrop-blur-md rounded-lg p-8 max-w-md mx-auto">
             <h2 className="text-2xl font-semibold text-white mb-4">Coming Soon</h2>
             <p className="text-gray-300">
-              We're building something amazing. Stay tuned for updates!
+              We&apos;re building something amazing. Stay tuned for updates!
             </p>
           </div>
         </div>
