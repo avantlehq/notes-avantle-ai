@@ -28,6 +28,15 @@ jobs:
         run: |
           # Create stub @avantle/core package
           mkdir -p core/packages/core/dist
+          cat > core/packages/core/package.json << 'STUB_EOF'
+          {
+            "name": "@avantle/core",
+            "version": "0.1.0",
+            "main": "dist/index.js",
+            "types": "dist/index.d.ts"
+          }
+          STUB_EOF
+          
           cat > core/packages/core/dist/index.js << 'STUB_EOF'
           export class CryptoService {
             static async deriveKey() { return {}; }
@@ -56,12 +65,53 @@ jobs:
           }
           STUB_EOF
           
+          cat > core/packages/core/dist/index.d.ts << 'STUB_EOF'
+          export declare class CryptoService {
+            static deriveKey(): Promise<any>;
+            static encrypt(): Promise<{data: string, iv: string}>;
+            static decrypt(): Promise<string>;
+            static generateSalt(): Uint8Array;
+          }
+          export declare class StoreService {
+            init(): Promise<void>;
+            saveNote(): Promise<void>;
+            loadNote(): Promise<any>;
+            listNotes(): Promise<any[]>;
+            deleteNote(): Promise<void>;
+            static getSalt(): any;
+            static setSalt(): void;
+            static generateId(): string;
+          }
+          export declare class RDFStore {
+            addTriple(): void;
+            removeTriple(): void;
+            querySelect(): any[];
+            getNotesInFolder(): any[];
+            setNoteFolder(): void;
+            clear(): void;
+            getAllTriples(): any[];
+          }
+          STUB_EOF
+          
           # Create stub @avantle/ui package  
           mkdir -p core/packages/ui/dist
+          cat > core/packages/ui/package.json << 'STUB_EOF'
+          {
+            "name": "@avantle/ui",
+            "version": "0.1.0",
+            "main": "dist/index.js",
+            "types": "dist/index.d.ts"
+          }
+          STUB_EOF
+          
           cat > core/packages/ui/dist/index.js << 'STUB_EOF'
           export function Footer() {
             return null;
           }
+          STUB_EOF
+          
+          cat > core/packages/ui/dist/index.d.ts << 'STUB_EOF'
+          export declare function Footer(): any;
           STUB_EOF
 
       - name: Install dependencies
