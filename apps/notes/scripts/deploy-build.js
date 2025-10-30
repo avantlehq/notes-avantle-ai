@@ -517,10 +517,13 @@ export default function Home() {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Enter your master password"
+                placeholder="Create or enter your master password"
                 className="w-full p-3 bg-white/20 border border-white/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 disabled={isLoading}
               />
+              <p className="text-xs text-gray-400 mt-1">
+                First time? Create any password. Returning? Enter your existing password.
+              </p>
             </div>
 
             {error && (
@@ -532,14 +535,14 @@ export default function Home() {
               disabled={isLoading || !password.trim()}
               className="w-full py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
-              {isLoading ? 'Unlocking...' : 'Unlock Notes'}
+              {isLoading ? 'Unlocking...' : 'Access My Notes'}
             </button>
           </form>
 
           <div className="mt-6 text-center">
             <p className="text-xs text-gray-400">
-              🔒 Your password is used to encrypt/decrypt notes locally.<br/>
-              It never leaves your device.
+              🔒 Your password creates a unique encryption key for your notes.<br/>
+              No account needed - your password never leaves this device.
             </p>
           </div>
         </div>
