@@ -1,6 +1,6 @@
 {
-  "version": 2,
-  "buildCommand": "mkdir -p core/packages/core/dist core/packages/ui/dist && echo 'export class CryptoService{static async deriveKey(){return{}}static async encrypt(){return{data:\"\",iv:\"\"}}static async decrypt(){return\"\"}static generateSalt(){return new Uint8Array(32)}}export class StoreService{async init(){}async saveNote(){}async loadNote(){return null}async listNotes(){return[]}async deleteNote(){}static getSalt(){return null}static setSalt(){}static generateId(){return\"test-id\"}}export class RDFStore{addTriple(){}removeTriple(){}querySelect(){return[]}getNotesInFolder(){return[]}setNoteFolder(){}clear(){}getAllTriples(){return[]}}' > core/packages/core/dist/index.js && echo '{\"name\":\"@avantle/core\",\"version\":\"0.1.0\",\"main\":\"dist/index.js\"}' > core/packages/core/package.json && echo 'export function Footer(){return null}' > core/packages/ui/dist/index.js && echo '{\"name\":\"@avantle/ui\",\"version\":\"0.1.0\",\"main\":\"dist/index.js\"}' > core/packages/ui/package.json && cd apps/notes && npm install && npm run build",
+  "framework": "nextjs",
+  "buildCommand": "cd apps/notes && npm run build",
   "outputDirectory": "apps/notes/.next",
   "installCommand": "cd apps/notes && npm install"
 }
