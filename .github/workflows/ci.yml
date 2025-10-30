@@ -1,0 +1,80 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Create stub packages
+        run: |
+          # Create stub @avantle/core package
+          mkdir -p core/packages/core/dist
+          cat > core/packages/core/dist/index.js << 'STUB_EOF'
+          export class CryptoService {
+            static async deriveKey() { return {}; }
+            static async encrypt() { return { data: '', iv: '' }; }
+            static async decrypt() { return ''; }
+            static generateSalt() { return new Uint8Array(32); }
+          }
+          export class StoreService {
+            async init() {}
+            async saveNote() {}
+            async loadNote() { return null; }
+            async listNotes() { return []; }
+            async deleteNote() {}
+            static getSalt() { return null; }
+            static setSalt() {}
+            static generateId() { return 'test-id'; }
+          }
+          export class RDFStore {
+            addTriple() {}
+            removeTriple() {}
+            querySelect() { return []; }
+            getNotesInFolder() { return []; }
+            setNoteFolder() {}
+            clear() {}
+            getAllTriples() { return []; }
+          }
+          STUB_EOF
+          
+          # Create stub @avantle/ui package  
+          mkdir -p core/packages/ui/dist
+          cat > core/packages/ui/dist/index.js << 'STUB_EOF'
+          export function Footer() {
+            return null;
+          }
+          STUB_EOF
+
+      - name: Install dependencies
+        run: |
+          cd apps/notes
+          pnpm install
+
+      - name: Build Next.js application
+        run: |
+          cd apps/notes
+          pnpm build
+
+      - name: Run linter
+        run: |
+          cd apps/notes
+          pnpm lint
