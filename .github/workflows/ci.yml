@@ -28,16 +28,16 @@ jobs:
         run: |
           # Create stub @avantle/core package
           mkdir -p core/packages/core/dist
-          cat > core/packages/core/package.json << 'STUB_EOF'
+          cat > core/packages/core/package.json << 'EOF'
           {
             "name": "@avantle/core",
             "version": "0.1.0",
             "main": "dist/index.js",
             "types": "dist/index.d.ts"
           }
-          STUB_EOF
+          EOF
           
-          cat > core/packages/core/dist/index.js << 'STUB_EOF'
+          cat > core/packages/core/dist/index.js << 'EOF'
           export class CryptoService {
             static async deriveKey() { return {}; }
             static async encrypt() { return { data: '', iv: '' }; }
@@ -63,9 +63,9 @@ jobs:
             clear() {}
             getAllTriples() { return []; }
           }
-          STUB_EOF
+          EOF
           
-          cat > core/packages/core/dist/index.d.ts << 'STUB_EOF'
+          cat > core/packages/core/dist/index.d.ts << 'EOF'
           export declare class CryptoService {
             static deriveKey(): Promise<any>;
             static encrypt(): Promise<{data: string, iv: string}>;
@@ -91,40 +91,43 @@ jobs:
             clear(): void;
             getAllTriples(): any[];
           }
-          STUB_EOF
+          EOF
           
           # Create stub @avantle/ui package  
           mkdir -p core/packages/ui/dist
-          cat > core/packages/ui/package.json << 'STUB_EOF'
+          cat > core/packages/ui/package.json << 'EOF'
           {
             "name": "@avantle/ui",
             "version": "0.1.0",
             "main": "dist/index.js",
             "types": "dist/index.d.ts"
           }
-          STUB_EOF
+          EOF
           
-          cat > core/packages/ui/dist/index.js << 'STUB_EOF'
+          cat > core/packages/ui/dist/index.js << 'EOF'
           export function Footer() {
             return null;
           }
-          STUB_EOF
+          EOF
           
-          cat > core/packages/ui/dist/index.d.ts << 'STUB_EOF'
+          cat > core/packages/ui/dist/index.d.ts << 'EOF'
           export declare function Footer(): any;
-          STUB_EOF
+          EOF
 
-      - name: Install dependencies
+      - name: Install root dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Install notes app dependencies  
         run: |
           cd apps/notes
-          pnpm install
+          pnpm install --no-frozen-lockfile
 
       - name: Build Next.js application
         run: |
           cd apps/notes
-          pnpm build
+          npm run build
 
       - name: Run linter
         run: |
           cd apps/notes
-          pnpm lint
+          npm run lint
