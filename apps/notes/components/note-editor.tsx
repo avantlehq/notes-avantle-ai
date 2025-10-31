@@ -16,7 +16,7 @@ import { getBacklinks, getForwardLinks } from '../lib/graph';
 import type { Note, BacklinkResult } from '../lib/types';
 
 export function NoteEditor() {
-  const { selectedNoteId, setSelectedNoteId, selectedFolderId, activeTab, setActiveTab } = useUIStore();
+  const { selectedNoteId, setSelectedNoteId, selectedFolderId, activeTab, setActiveTab, triggerNotesRefresh } = useUIStore();
   const [note, setNote] = useState<Note | null>(null);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -114,6 +114,9 @@ export function NoteEditor() {
       await loadLinks();
       setNote(updatedNote);
       setHasChanges(false);
+      
+      // Trigger notes list refresh
+      triggerNotesRefresh();
     } catch (error) {
       console.error('Failed to save note:', error);
     } finally {

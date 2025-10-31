@@ -12,7 +12,7 @@ import type { Note } from '../lib/types';
 type SortOption = 'newest' | 'oldest' | 'a-z' | 'z-a';
 
 export function SidebarNotes() {
-  const { selectedFolderId, selectedNoteId, setSelectedNoteId } = useUIStore();
+  const { selectedFolderId, selectedNoteId, setSelectedNoteId, notesRefreshTrigger } = useUIStore();
   const [notes, setNotes] = useState<Note[]>([]);
   const [sortBy, setSortBy] = useState<SortOption>('newest');
   const [loading, setLoading] = useState(false);
@@ -23,7 +23,7 @@ export function SidebarNotes() {
     if (selectedFolderId) {
       loadNotes();
     }
-  }, [selectedFolderId]);
+  }, [selectedFolderId, notesRefreshTrigger]);
 
   const loadNotes = async () => {
     if (!selectedFolderId) return;

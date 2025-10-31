@@ -27,6 +27,10 @@ interface UIStore extends UIState {
   // SPARQL Modal
   setSparqlModalOpen: (open: boolean) => void;
   
+  // Notes Refresh Trigger
+  notesRefreshTrigger: number;
+  triggerNotesRefresh: () => void;
+  
   // Chat Messages (UI state only, not persisted)
   messages: Message[];
   addMessage: (message: Omit<Message, 'id' | 'ts'>) => void;
@@ -46,6 +50,7 @@ export const useUIStore = create<UIStore>()(
       searchResults: [],
       activeTab: 'edit',
       isSparqlModalOpen: false,
+      notesRefreshTrigger: 0,
       messages: [],
       
       // Actions
@@ -66,6 +71,8 @@ export const useUIStore = create<UIStore>()(
       setActiveTab: (tab) => set({ activeTab: tab }),
       
       setSparqlModalOpen: (open) => set({ isSparqlModalOpen: open }),
+      
+      triggerNotesRefresh: () => set({ notesRefreshTrigger: Date.now() }),
       
       addMessage: (message) => set({
         messages: [...get().messages, {
