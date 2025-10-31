@@ -67,7 +67,7 @@ export default function Home() {
             </div>
             <h1 className="text-3xl font-bold text-foreground mb-2">
               Notes<span className="text-primary">.Avantle.AI</span>
-              <span className="text-sm font-normal text-muted-foreground ml-2">v1.1.1</span>
+              <span className="text-sm font-normal text-muted-foreground ml-2">v1.1.2</span>
             </h1>
             <p className="text-muted-foreground">Private Agent for encrypted knowledge management</p>
           </div>
