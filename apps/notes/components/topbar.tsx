@@ -57,7 +57,7 @@ export function Topbar() {
               <h1 className="font-semibold text-lg">
                 Notes<span className="text-blue-600">.Avantle.AI</span>
               </h1>
-              <div className="text-xs text-muted-foreground">v1.1.2</div>
+              <div className="text-xs text-muted-foreground">v1.1.3</div>
             </div>
           </div>
         </div>
