@@ -1,9 +1,6 @@
 {
-  "version": 2,
-  "framework": "nextjs",
   "buildCommand": "cd apps/notes && npm install && npm run build",
   "outputDirectory": "apps/notes/.next",
   "installCommand": "cd apps/notes && npm install",
-  "rootDirectory": "apps/notes",
-  "regions": ["iad1"]
+  "framework": "nextjs"
 }
