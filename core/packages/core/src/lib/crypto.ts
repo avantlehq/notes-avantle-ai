@@ -145,14 +145,25 @@ export class StoreService {
     });
   }
 
-  async saveNote(id: string, encrypted: any, title?: string): Promise<void> {
+  async saveNote(id: string, encryptedNote: any, title?: string): Promise<void> {
     if (!this.db) throw new Error('Database not initialized');
     const now = Date.now();
-    const note = { id, encrypted, created: now, updated: now, title };
+    
+    // Preserve existing structure but ensure we keep folderId and other metadata
+    const noteToSave = {
+      id,
+      folderId: encryptedNote.folderId, // Preserve folderId
+      encrypted: encryptedNote.encrypted,
+      created: encryptedNote.created || now,
+      updated: now,
+      updatedAt: encryptedNote.updatedAt,
+      title
+    };
+    
     return new Promise((resolve, reject) => {
       const transaction = this.db!.transaction([StoreService.STORE_NAME], 'readwrite');
       const store = transaction.objectStore(StoreService.STORE_NAME);
-      const request = store.put(note);
+      const request = store.put(noteToSave);
       request.onerror = () => reject(request.error);
       request.onsuccess = () => resolve();
     });

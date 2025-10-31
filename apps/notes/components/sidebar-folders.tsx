@@ -10,7 +10,7 @@ import { DataService } from '../lib/data';
 import type { Folder as FolderType } from '../lib/types';
 
 export function SidebarFolders() {
-  const { selectedFolderId, setSelectedFolderId } = useUIStore();
+  const { selectedFolderId, setSelectedFolderId, notesRefreshTrigger } = useUIStore();
   const [folders, setFolders] = useState<FolderType[]>([]);
   const [isCreating, setIsCreating] = useState(false);
   const [newFolderName, setNewFolderName] = useState('');
@@ -27,6 +27,13 @@ export function SidebarFolders() {
   useEffect(() => {
     loadNoteCounts();
   }, [folders]);
+
+  // Listen to notes refresh trigger to update counts
+  useEffect(() => {
+    if (notesRefreshTrigger) {
+      loadNoteCounts();
+    }
+  }, [notesRefreshTrigger]);
 
   const loadFolders = async () => {
     try {

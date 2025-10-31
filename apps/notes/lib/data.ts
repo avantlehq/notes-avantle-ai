@@ -105,7 +105,7 @@ export class DataService {
     
     const encryptedNote = {
       id: note.id,
-      folderId: note.folderId,
+      folderId: note.folderId, // Keep folderId at top level
       encrypted: {
         title: encryptedTitle,
         content: encryptedContent,
@@ -116,6 +116,7 @@ export class DataService {
       updatedAt: note.updatedAt
     };
 
+    // Pass the whole encryptedNote object to preserve folderId
     await this.store.saveNote(note.id, encryptedNote, note.title);
     
     // Update RDF triples
