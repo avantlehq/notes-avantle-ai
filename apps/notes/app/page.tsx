@@ -59,21 +59,21 @@ export default function Home() {
 
   if (viewMode === 'login') {
     return (
-      <main className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 flex items-center justify-center">
-        <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 max-w-md w-full mx-4">
+      <main className="min-h-screen bg-background flex items-center justify-center">
+        <div className="bg-card border border-border rounded-2xl p-8 max-w-md w-full mx-4 shadow-lg">
           <div className="text-center mb-8">
-            <div className="h-12 w-12 rounded-xl bg-blue-600 flex items-center justify-center mx-auto mb-4">
-              <span className="text-white font-bold text-xl">A</span>
+            <div className="h-12 w-12 rounded-xl bg-primary flex items-center justify-center mx-auto mb-4">
+              <span className="text-primary-foreground font-bold text-xl">A</span>
             </div>
-            <h1 className="text-3xl font-bold text-white mb-2">
-              Notes<span className="text-blue-400">.Avantle.AI</span>
+            <h1 className="text-3xl font-bold text-foreground mb-2">
+              Notes<span className="text-primary">.Avantle.AI</span>
             </h1>
-            <p className="text-gray-300">Private Agent for encrypted knowledge management</p>
+            <p className="text-muted-foreground">Private Agent for encrypted knowledge management</p>
           </div>
 
           <form onSubmit={handleLogin} className="space-y-6">
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-2">
+            <div className="space-y-2">
+              <label htmlFor="password" className="block text-sm font-medium text-foreground">
                 Master Password
               </label>
               <input
@@ -82,29 +82,29 @@ export default function Home() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Create or enter your master password"
-                className="w-full p-3 bg-white/20 border border-white/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full p-3 bg-background border border-input rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
                 disabled={isLoading}
               />
-              <p className="text-xs text-gray-400 mt-1">
+              <p className="text-xs text-muted-foreground">
                 First time? Create any password. Returning? Enter your existing password.
               </p>
             </div>
 
             {error && (
-              <p className="text-red-400 text-sm">{error}</p>
+              <p className="text-destructive text-sm">{error}</p>
             )}
 
             <button
               type="submit"
               disabled={isLoading || !password.trim()}
-              className="w-full py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="w-full py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
             >
               {isLoading ? 'Unlocking...' : 'Access Private Notes'}
             </button>
           </form>
 
           <div className="mt-6 text-center">
-            <p className="text-xs text-gray-400">
+            <p className="text-xs text-muted-foreground">
               🔒 Your password creates a unique encryption key for your notes.<br/>
               Data sovereignty: Everything stays on your device.
             </p>
