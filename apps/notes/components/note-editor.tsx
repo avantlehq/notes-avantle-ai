@@ -16,7 +16,7 @@ import { getBacklinks, getForwardLinks } from '../lib/graph';
 import type { Note, BacklinkResult } from '../lib/types';
 
 export function NoteEditor() {
-  const { selectedNoteId, setSelectedNoteId, activeTab, setActiveTab } = useUIStore();
+  const { selectedNoteId, setSelectedNoteId, selectedFolderId, activeTab, setActiveTab } = useUIStore();
   const [note, setNote] = useState<Note | null>(null);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -39,10 +39,14 @@ export function NoteEditor() {
   }, [selectedNoteId]);
 
   useEffect(() => {
-    const hasUnsavedChanges = note && (
+    // For new notes or when editing, consider any content as changes
+    const hasUnsavedChanges = note ? (
       note.title !== title ||
       note.content !== content ||
       JSON.stringify(note.tags) !== JSON.stringify(tags)
+    ) : (
+      // For new notes, any content means changes
+      title.trim() !== '' || content.trim() !== '' || tags.length > 0
     );
     setHasChanges(!!hasUnsavedChanges);
   }, [title, content, tags, note]);
@@ -90,16 +94,19 @@ export function NoteEditor() {
   };
 
   const handleSave = async () => {
-    if (!selectedNoteId || !note) return;
+    if (!selectedNoteId) return;
 
     setIsSaving(true);
     try {
+      // Create note object (works for both new and existing notes)
       const updatedNote: Note = {
-        ...note,
+        id: selectedNoteId,
+        folderId: note?.folderId || selectedFolderId || 'inbox', // use current folder or fallback
         title: title.trim() || 'Untitled Note',
         content,
         tags,
-        updatedAt: Date.now()
+        updatedAt: Date.now(),
+        encrypted: true
       };
 
       await dataService.saveNote(updatedNote);
