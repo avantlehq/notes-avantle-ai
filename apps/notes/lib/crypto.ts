@@ -47,7 +47,7 @@ export class CryptoService {
     const encryptedBuffer = await crypto.subtle.encrypt(
       {
         name: this.ALGORITHM,
-        iv: iv
+        iv
       },
       key,
       dataBuffer

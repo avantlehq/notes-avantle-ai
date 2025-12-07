@@ -1,6 +1,6 @@
 {
   "name": "@avantle/notes",
-  "version": "1.1.5",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -9,20 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@radix-ui/react-dialog": "^1.0.5",
-    "@radix-ui/react-scroll-area": "^1.0.5",
-    "@radix-ui/react-slot": "^1.0.2",
-    "@radix-ui/react-tabs": "^1.0.4",
-    "class-variance-authority": "^0.7.0",
-    "clsx": "^2.0.0",
-    "lucide-react": "^0.460.0",
     "next": "16.0.7",
-    "react": "^19.2.1",
-    "react-dom": "^19.2.1",
-    "react-markdown": "^9.0.1",
-    "rehype-highlight": "^7.0.0",
-    "tailwind-merge": "^2.0.0",
-    "zustand": "^4.4.7"
+    "react": "^19.2.1", 
+    "react-dom": "^19.2.1"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
