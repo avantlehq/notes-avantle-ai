@@ -13,7 +13,11 @@ fs.mkdirSync(coreDistDir, { recursive: true });
 fs.writeFileSync(path.join(coreDir, 'package.json'), JSON.stringify({
   "name": "@avantle/core",
   "version": "0.1.0",
-  "main": "dist/index.js"
+  "main": "dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./rdf": "./rdf.js"
+  }
 }, null, 2));
 
 const coreJs = `export class CryptoService {
@@ -43,6 +47,20 @@ export class RDFStore {
 }`;
 
 fs.writeFileSync(path.join(coreDistDir, 'index.js'), coreJs);
+
+// Create RDF module 
+const rdfJs = `export class RDFStore {
+  addTriple() {}
+  removeTriple() {}
+  querySelect() { return []; }
+  getNotesInFolder() { return []; }
+  setNoteFolder() {}
+  clear() {}
+  getAllTriples() { return []; }
+}
+export const rdfStore = new RDFStore();`;
+
+fs.writeFileSync(path.join(coreDir, 'rdf.js'), rdfJs);
 
 // Create UI package
 const uiDir = path.join(__dirname, '../../../core/packages/ui');
