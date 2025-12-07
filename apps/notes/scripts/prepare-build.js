@@ -83,8 +83,13 @@ console.log('✅ Stub packages created');
 const packageJsonPath = path.join(__dirname, '../package.json');
 const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
 
-delete packageJson.dependencies['@avantle/core'];
-delete packageJson.dependencies['@avantle/ui'];
+// Remove only workspace dependencies
+if (packageJson.dependencies && packageJson.dependencies['@avantle/core']) {
+  delete packageJson.dependencies['@avantle/core'];
+}
+if (packageJson.dependencies && packageJson.dependencies['@avantle/ui']) {
+  delete packageJson.dependencies['@avantle/ui'];
+}
 
 fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
 
