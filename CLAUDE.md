@@ -6,6 +6,59 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This repository contains **notes.avantle.ai** - a Private Agent for encrypted knowledge management that's part of the broader Avantle.ai platform. Avantle.ai is building the new standard for data-sovereign AI through Private Agents that run locally with end-to-end encryption.
 
+## 🎨 **Avantle.ai Unified Styling System**
+
+**⚠️ MANDATORY: Používaj jednotný Avantle.ai styling guide implementovaný v `apps/notes/app/globals.css`**
+
+Projekt využíva unifikovaný styling system adaptovaný pre Notes/Knowledge domain:
+
+### **Notes Color System**
+```css
+/* Notes-specific category colors */
+--color-blue: #4A90E2;    /* Main/Dashboard */
+--color-green: #7ED321;   /* Knowledge/Notes */
+--color-orange: #F5A623;  /* Editing/Creation */
+--color-red: #FF6B6B;     /* Delete/Archive */
+--color-purple: #9B59B6;  /* Settings/Export */
+--color-gray: #A9A9A9;    /* Search/Neutral */
+
+/* Standardized opacity variables */
+--border-opacity: 0.3;     /* 30% for border accents */
+--icon-opacity: 0.15;      /* 15% for icon backgrounds */
+--hover-opacity: 0.25;     /* 25% for hover states */
+--underline-opacity: 0.4;  /* 40% for underline accents */
+```
+
+### **Ultra-soft Dark Theme (RGB 25,39,52)**
+- **Background**: `#192734` - professional knowledge management theme
+- **Cards**: `#1F2D3A` - subtle elevation for note components
+- **Borders**: `#2F404E` - refined contrast for clear UI separation
+- **Inter font family** - modern, professional typography
+
+### **Component Styling Rules**
+```tsx
+// ✅ CORRECT - Clean Tailwind utilities
+<div className="avantle-border bg-card backdrop-blur-sm border-l-4 border-l-notes-green shadow-sm hover:shadow-md transition-shadow">
+
+// ✅ CORRECT - Category color integration
+<div className="p-2 rounded-lg bg-icon-green hover:bg-icon-green-hover transition-colors">
+  <Icon style={{ color: 'var(--color-green)' }} />
+</div>
+
+// ❌ WRONG - Inline calculations
+<div style={{ borderColor: `rgb(126 211 33 / var(--border-opacity))` }}>
+```
+
+### **Page Color Mapping (Notes Domain)**
+- **Dashboard**: Blue theme (`var(--color-blue)`)
+- **Notes/Knowledge**: Green theme (`var(--color-green)`)  
+- **Editor/Creation**: Orange theme (`var(--color-orange)`)
+- **Delete/Archive**: Red theme (`var(--color-red)`)
+- **Settings**: Purple theme (`var(--color-purple)`)
+- **Search**: Gray theme (`var(--color-gray)`)
+
+**🎯 Result**: Professional, consistent knowledge management UI s enterprise-grade polish pre Private Agent scaling.
+
 ### The Private Agent Mission
 - **Data Sovereignty**: AI runs where your data resides (device/on-premise), never in external clouds
 - **End-to-End Encryption**: Only you control access to your data

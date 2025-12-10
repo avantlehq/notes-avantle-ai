@@ -1,23 +1,310 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Avantle.ai Notes Dark Mode Design - Default Theme */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --radius: 0.5rem;
+  
+  /* Layout Variables */
+  --sidebar-width: 240px;
+  --sidebar-collapsed-width: 64px;
+  --topbar-height: 72px;
+  --right-panel-width: 320px;
+  
+  /* Notes Color System - CSS Variables */
+  --color-blue: #4A90E2;    /* Main/Dashboard */
+  --color-green: #7ED321;   /* Knowledge/Notes */
+  --color-orange: #F5A623;  /* Editing/Creation */
+  --color-red: #FF6B6B;     /* Delete/Archive */
+  --color-purple: #9B59B6;  /* Settings/Export */
+  --color-gray: #A9A9A9;    /* Search/Neutral */
+  
+  /* Lighter tints for sidebar (reduced visual weight) */
+  --color-blue-light: #6BA3E8;
+  --color-green-light: #96DA47;
+  --color-orange-light: #F7B649;
+  --color-red-light: #FF8A8A;
+  --color-purple-light: #B670C7;
+  --color-gray-light: #BFBFBF;
+  
+  /* NEW: Standardized Opacity Variables */
+  --border-opacity: 0.3;     /* 30% for border accents */
+  --icon-opacity: 0.15;      /* 15% for icon backgrounds */
+  --hover-opacity: 0.25;     /* 25% for hover states */
+  
+  /* NEW: Underline Accent Standards */
+  --underline-thickness: 2px;
+  --underline-opacity: 0.4;
+  
+  /* Ultra-soft dark blue background RGB(25,39,52) = #192734 */
+  --background: #192734;
+  --foreground: oklch(0.95 0 0);
+  --card: #1F2D3A;
+  --card-foreground: oklch(0.95 0 0);
+  --popover: #243240;
+  --popover-foreground: oklch(0.95 0 0);
+  --primary: var(--color-green); /* Using Notes green for primary accent */
+  --primary-foreground: oklch(0.98 0 0);
+  --secondary: #2A3946;
+  --secondary-foreground: oklch(0.85 0 0);
+  --muted: #202E3B;
+  --muted-foreground: oklch(0.65 0 0);
+  --accent: #2A3946;
+  --accent-foreground: oklch(0.85 0 0);
+  --destructive: oklch(0.65 0.2 25);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: #2F404E;
+  --input: #202E3B;
+  --ring: var(--color-green);
+  --chart-1: oklch(0.6 0.15 260);
+  --chart-2: oklch(0.65 0.12 180);
+  --chart-3: oklch(0.55 0.18 300);
+  --chart-4: oklch(0.7 0.14 80);
+  --chart-5: oklch(0.6 0.16 40);
+  --sidebar: oklch(0.1 0 0);
+  --sidebar-foreground: oklch(0.9 0 0);
+  --sidebar-primary: oklch(0.7 0.15 270);
+  --sidebar-primary-foreground: oklch(0.08 0 0);
+  --sidebar-accent: oklch(0.18 0 0);
+  --sidebar-accent-foreground: oklch(0.9 0 0);
+  --sidebar-border: oklch(0.2 0 0);
+  --sidebar-ring: oklch(0.7 0.15 270);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Light mode - class-based (works with next-themes) */
+.light {
+  /* Light mode backgrounds */
+  --background: #FFFFFF;
+  --foreground: #0F172A;
+  --card: #F8F9FA;
+  --card-foreground: #0F172A;
+  --popover: #FFFFFF;
+  --popover-foreground: #0F172A;
+  --primary: #2563EB;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F1F5F9;
+  --secondary-foreground: #0F172A;
+  --muted: #F1F5F9;
+  --muted-foreground: #64748B;
+  --accent: #F1F5F9;
+  --accent-foreground: #0F172A;
+  --destructive: #DC2626;
+  --destructive-foreground: #FFFFFF;
+  --border: #E2E8F0;
+  --input: #E2E8F0;
+  --ring: #2563EB;
+  
+  /* Light mode category colors (darker for contrast) */
+  --color-blue: #2563EB;
+  --color-green: #16A34A;
+  --color-orange: #EA580C;
+  --color-red: #DC2626;
+  --color-purple: #7C3AED;
+  --color-gray: #6B7280;
+  
+  /* Light mode lighter tints */
+  --color-blue-light: #3B82F6;
+  --color-green-light: #22C55E;
+  --color-orange-light: #F97316;
+  --color-red-light: #EF4444;
+  --color-purple-light: #8B5CF6;
+  --color-gray-light: #9CA3AF;
+  
+  /* Same opacity standards */
+  --border-opacity: 0.3;
+  --icon-opacity: 0.15;
+  --hover-opacity: 0.25;
+  --underline-thickness: 2px;
+  --underline-opacity: 0.4;
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+    outline-color: color-mix(in oklch, var(--ring), transparent 50%);
+  }
+  
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: 'Inter', system-ui, sans-serif;
+    overflow-x: hidden;
+  }
+  
+  /* Theme-aware gradient background */
+  .avantle-gradient {
+    background: var(--background);
+  }
+  
+  /* Dark mode gradient */
+  .dark .avantle-gradient {
+    background: linear-gradient(135deg, #15212C 0%, #192734 100%);
+  }
+  
+  /* Light mode gradient */  
+  .light .avantle-gradient {
+    background: linear-gradient(135deg, #FAFAFA 0%, #FFFFFF 100%);
+  }
+  
+  .avantle-border {
+    border: 1px solid var(--border);
+  }
+  
+  .avantle-glow {
+    box-shadow: 0 0 20px -5px oklch(0.7 0.15 270 / 0.2);
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+/* Layout Structure CSS */
+.app-layout {
+  display: grid;
+  height: 100vh;
+  grid-template-areas: 
+    "topbar topbar topbar"
+    "sidebar main right";
+  grid-template-rows: var(--topbar-height) 1fr;
+  grid-template-columns: var(--sidebar-width) 1fr 0;
+  transition: grid-template-columns 300ms ease;
+}
+
+.app-layout.sidebar-collapsed {
+  grid-template-columns: var(--sidebar-collapsed-width) 1fr 0;
+}
+
+.app-layout.right-panel-open {
+  grid-template-columns: var(--sidebar-width) 1fr var(--right-panel-width);
+}
+
+.app-layout.sidebar-collapsed.right-panel-open {
+  grid-template-columns: var(--sidebar-collapsed-width) 1fr var(--right-panel-width);
+}
+
+.app-topbar {
+  grid-area: topbar;
+  z-index: 30;
+}
+
+.app-sidebar {
+  grid-area: sidebar;
+  z-index: 20;
+}
+
+.app-main {
+  grid-area: main;
+  overflow-y: auto;
+  z-index: 10;
+  background: var(--background); /* Uses Twitter dark blue theme */
+  display: flex;
+  flex-direction: column;
+}
+
+.app-right {
+  grid-area: right;
+  z-index: 20;
+}
+
+/* Simple layout for homepage */
+.simple-layout {
+  height: 100vh;
+  overflow-y: auto;
+}
+
+/* =====================================================
+   DROPDOWN MENU ENHANCEMENT - FIX TRANSPARENCY ISSUES
+   ===================================================== */
+
+/* Ensure all select dropdowns have maximum z-index and solid backgrounds */
+[data-radix-select-content],
+[data-slot="select-content"],
+.radix-select-content {
+  z-index: 99999 !important;
+  background: var(--popover) !important;
+  border: 1px solid var(--border) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  box-shadow: 
+    0 10px 38px -10px rgba(22, 23, 24, 0.35), 
+    0 10px 20px -15px rgba(22, 23, 24, 0.2),
+    0 0 0 1px var(--border) !important;
+}
+
+/* Force solid background for light mode */
+.light [data-radix-select-content],
+.light [data-slot="select-content"],
+.light .radix-select-content {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 
+    0 10px 38px -10px rgba(22, 23, 24, 0.35), 
+    0 10px 20px -15px rgba(22, 23, 24, 0.2),
+    0 0 0 1px #e2e8f0 !important;
+}
+
+/* Ensure dropdown items have solid hover states */
+[data-radix-select-item]:hover,
+[data-slot="select-item"]:hover {
+  background: var(--accent) !important;
+  color: var(--accent-foreground) !important;
+}
+
+/* Additional z-index enforcement for any portal-rendered content */
+[data-radix-portal] {
+  z-index: 99999 !important;
+}
+
+/* Fix for any transparent overlays */
+.radix-select-content,
+[data-radix-select-content] {
+  opacity: 1 !important;
+}
+
+/* Ensure no transparent backgrounds leak through */
+[data-radix-select-viewport] {
+  background: inherit !important;
+}
+
+/* =====================================================
+   SELECTED OPTION GREEN HIGHLIGHTING
+   ===================================================== */
+
+/* Enhanced green highlighting for selected dropdown options */
+[data-state="checked"][data-slot="select-item"] {
+  background: rgb(240 253 244) !important; /* green-50 */
+  color: rgb(22 101 52) !important; /* green-800 */
+  border-left: 3px solid rgb(34 197 94) !important; /* green-500 border accent */
+  font-weight: 500 !important;
+}
+
+/* Dark mode selected option styling */
+.dark [data-state="checked"][data-slot="select-item"] {
+  background: rgba(34, 197, 94, 0.15) !important; /* green with opacity */
+  color: rgb(187 247 208) !important; /* green-200 */
+  border-left: 3px solid rgb(34 197 94) !important; /* green-500 border accent */
+}
+
+/* Enhanced hover effect for selected items */
+[data-state="checked"][data-slot="select-item"]:hover {
+  background: rgb(220 252 231) !important; /* green-100 */
+  color: rgb(20 83 45) !important; /* green-900 */
+}
+
+.dark [data-state="checked"][data-slot="select-item"]:hover {
+  background: rgba(34, 197, 94, 0.25) !important;
+  color: rgb(220 252 231) !important; /* green-100 */
+}
+
+/* Make the checkmark more prominent */
+[data-state="checked"] [data-radix-select-item-indicator] svg {
+  color: rgb(34 197 94) !important; /* green-500 */
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1)) !important;
 }
 
 @layer utilities {
