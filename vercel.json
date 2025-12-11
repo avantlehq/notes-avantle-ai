@@ -1,7 +1,0 @@
-{
-  "buildCommand": "cd apps/notes && npm install --legacy-peer-deps && npm run build",
-  "outputDirectory": "apps/notes/.next",
-  "installCommand": "cd apps/notes && npm install --legacy-peer-deps",
-  "framework": "nextjs",
-  "rootDirectory": "apps/notes"
-}
