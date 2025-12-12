@@ -10,9 +10,16 @@ interface NoteListProps {
 
 export function NoteList({ onSelectNote, onNewNote }: NoteListProps) {
   const [notes, setNotes] = useState<StoredNote[]>([]);
-  const [store] = useState(() => new StoreService());
+  const [store, setStore] = useState<StoreService | null>(null);
 
   useEffect(() => {
+    const storeInstance = new StoreService();
+    setStore(storeInstance);
+  }, []);
+
+  useEffect(() => {
+    if (!store) return;
+    
     const loadNotes = async () => {
       await store.init();
       const allNotes = await store.listNotes();
@@ -22,6 +29,8 @@ export function NoteList({ onSelectNote, onNewNote }: NoteListProps) {
   }, [store]);
 
   const handleDeleteNote = async (id: string, e: React.MouseEvent) => {
+    if (!store) return;
+    
     e.stopPropagation();
     if (confirm('Are you sure you want to delete this note?')) {
       await store.deleteNote(id);

@@ -15,9 +15,16 @@ export function Editor({ noteId, onSave, onBack }: EditorProps) {
   const [content, setContent] = useState('');
   const [title, setTitle] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [store] = useState(() => new StoreService());
+  const [store, setStore] = useState<StoreService | null>(null);
 
   useEffect(() => {
+    const storeInstance = new StoreService();
+    setStore(storeInstance);
+  }, []);
+
+  useEffect(() => {
+    if (!store) return;
+    
     const initAndLoad = async () => {
       await store.init();
       if (noteId) {
@@ -36,6 +43,8 @@ export function Editor({ noteId, onSave, onBack }: EditorProps) {
   }, [noteId, store]);
 
   const handleSave = async () => {
+    if (!store) return;
+    
     const key = KeyManager.getCurrentKey();
     if (!key) return;
 
