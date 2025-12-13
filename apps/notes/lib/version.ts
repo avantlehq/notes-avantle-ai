@@ -9,8 +9,8 @@
  * - PATCH: Bug fixes, styling updates, performance improvements
  */
 
-export const VERSION = "0.1.2";
-export const VERSION_NAME = "Avantle Styling Integration";
+export const VERSION = "0.1.3";
+export const VERSION_NAME = "Deployment Fix";
 export const BUILD_DATE = new Date().toISOString();
 export const ENVIRONMENT = process.env.NODE_ENV || 'development';
 

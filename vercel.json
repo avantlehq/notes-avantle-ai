@@ -1,6 +1,7 @@
 {
   "buildCommand": "cd apps/notes && npm install && npm run build",
-  "outputDirectory": "apps/notes/.next",
+  "outputDirectory": "apps/notes/out",
   "installCommand": "npm install --prefix apps/notes",
-  "framework": null
+  "framework": null,
+  "regions": ["fra1"]
 }
